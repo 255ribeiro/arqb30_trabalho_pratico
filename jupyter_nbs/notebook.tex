@@ -1,0 +1,796 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Anexo\_II}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{minerauxe7uxe3o-de-dados-geoespaciais---anexo-ii}{%
+\section{Mineração de Dados Geoespaciais - Anexo
+II}\label{minerauxe7uxe3o-de-dados-geoespaciais---anexo-ii}}
+
+    Fernando Ferraz Ribeiro
+
+Beth Leite Soares
+
+    O objetivo deste notebook exportar dados de um shapefile e dados
+baixados do open street maps para tabelas em um banco de dados
+georeferenciado (Postgis)
+
+    \hypertarget{testando-o-ambiente-de-trabalho-conda-environment}{%
+\subsection{Testando o ambiente de trabalho (conda
+environment)}\label{testando-o-ambiente-de-trabalho-conda-environment}}
+
+Mostrando o caminho que o servidor Jupyter carrega interpretador o
+Python (python.exe) e carregas o anbiente (\envs)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{executable}\PY{p}{)}
+        \PY{n}{pathFix} \PY{o}{=} \PY{n}{sys}\PY{o}{.}\PY{n}{prefix}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{pathFix}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}ffrib\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}Geodata\_2018\_12\_08\textbackslash{}python.exe
+C:\textbackslash{}Users\textbackslash{}ffrib\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}Geodata\_2018\_12\_08
+
+    \end{Verbatim}
+
+    \hypertarget{lidando-com-erros-do-ambiente-windows-only}{%
+\subsection{Lidando com erros do ambiente (WINDOWS
+ONLY)}\label{lidando-com-erros-do-ambiente-windows-only}}
+
+Algumas bibliotecas importadas apresentam um erro apendas na plataforma
+Windows.
+
+Caso esteja rodando no windows e tenha problemas com o sistema de
+coordenadas de referência (crs), rode a linha de comando abaixo:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{pathFix} \PY{o}{=} \PY{n}{pathFix} \PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{pathFix}\PY{p}{)}
+        \PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PROJ\PYZus{}LIB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=}   \PY{n}{pathFix} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/Library/share}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:/Users/ffrib/AppData/Local/conda/conda/envs/Geodata\_2018\_12\_08
+
+    \end{Verbatim}
+
+    mais informações no
+\href{https://github.com/geopandas/geopandas/issues/830}{Post sobre o
+Erro}
+
+    \hypertarget{importando-bibliotecas}{%
+\subsection{Importando Bibliotecas}\label{importando-bibliotecas}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Biblioteca basica de programação científica em python}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{c+c1}{\PYZsh{} biblioteca de análise de dados}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{c+c1}{\PYZsh{} biblioteca de gráficos}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{cm} \PY{k}{as} \PY{n+nn}{cm}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{colors} \PY{k}{as} \PY{n+nn}{colors}
+        \PY{c+c1}{\PYZsh{} Bibliotecas geopandas}
+        \PY{k+kn}{import} \PY{n+nn}{geopandas} \PY{k}{as} \PY{n+nn}{gpd}
+        \PY{c+c1}{\PYZsh{} biblioteca de redes complexas}
+        \PY{k+kn}{import} \PY{n+nn}{networkx} \PY{k}{as} \PY{n+nn}{nx}
+        \PY{c+c1}{\PYZsh{} biblioteca para acessar dados do Open sreet maps}
+        \PY{k+kn}{import} \PY{n+nn}{osmnx} \PY{k}{as} \PY{n+nn}{ox}
+        \PY{c+c1}{\PYZsh{} bibliotecas de leitura e escrita em banco de dados}
+        \PY{k+kn}{from} \PY{n+nn}{geoalchemy2} \PY{k}{import} \PY{n}{Geometry}\PY{p}{,} \PY{n}{WKTElement}
+        \PY{c+c1}{\PYZsh{} bibliotecas de leitura e escrita em banco de dados geoespaciais}
+        \PY{k+kn}{from} \PY{n+nn}{sqlalchemy} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{ox}\PY{o}{.}\PY{n}{config}\PY{p}{(}\PY{n}{use\PYZus{}cache}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{log\PYZus{}console}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{ox}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} '0.8.2'
+\end{Verbatim}
+            
+    \hypertarget{criando-coordenadas-de-recorte}{%
+\subsection{Criando coordenadas de
+recorte}\label{criando-coordenadas-de-recorte}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} coordenada inicial x}
+        \PY{n}{xSC} \PY{o}{=} \PY{l+m+mi}{555000}
+        \PY{c+c1}{\PYZsh{} variação da coordenada x}
+        \PY{n}{deltaX} \PY{o}{=} \PY{l+m+mi}{2000}
+        \PY{c+c1}{\PYZsh{} coordenada inicial y}
+        \PY{n}{ySC} \PY{o}{=} \PY{l+m+mi}{8570000}
+        \PY{c+c1}{\PYZsh{} variação da coordenada y}
+        \PY{n}{deltaY} \PY{o}{=} \PY{l+m+mi}{2000}
+\end{Verbatim}
+
+
+    \hypertarget{limites-da-importauxe7uxe2o}{%
+\subsection{Limites da importaçâo}\label{limites-da-importauxe7uxe2o}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{from} \PY{n+nn}{shapely}\PY{n+nn}{.}\PY{n+nn}{geometry} \PY{k}{import} \PY{n}{Polygon}
+        
+        \PY{n}{recorte} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{GeoSeries}\PY{p}{(}\PY{p}{[} \PY{n}{Polygon}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{xSC}\PY{p}{,}\PY{n}{ySC}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{xSC} \PY{o}{+} \PY{n}{deltaX} \PY{p}{,} \PY{n}{ySC}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{xSC} \PY{o}{+} \PY{n}{deltaX}\PY{p}{,} \PY{n}{ySC} \PY{o}{+} \PY{n}{deltaY} \PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{xSC}\PY{p}{,} \PY{n}{ySC} \PY{o}{+} \PY{n}{deltaY} \PY{p}{)}\PY{p}{]}\PY{p}{)} \PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    A geometria criada pela linha de comando acima, embora tenha as
+corrdenadas relativas ao sistema de projeção Sigras 2000, não tem
+nenhuma informação georreferenciada. É preciso informar qual o sistema
+de coordenadas de referência utilizado ( coordenates reference sistem -
+crs). O Bloco de código abaxo informa que as coordenadas do recorte
+devem ser tratadas com o sistema Sigras 2000. com unidades em metro.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} colocando em coordenaadas SIRGAS 2000}
+        \PY{n}{recorte}\PY{o}{.}\PY{n}{crs} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{proj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{24}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{south}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ellps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aust\PYZus{}SA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no\PYZus{}defs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{\PYZcb{}}
+        \PY{c+c1}{\PYZsh{}recorte.crs =\PYZob{}\PYZsq{}init\PYZsq{}: \PYZsq{}epsg:4674\PYZsq{}, \PYZsq{}units\PYZsq{}: \PYZsq{}m\PYZsq{}, \PYZsq{}no\PYZus{}defs\PYZsq{}: True\PYZcb{}}
+\end{Verbatim}
+
+
+    \hypertarget{carregando-shapes}{%
+\subsection{Carregando shapes}\label{carregando-shapes}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} importando Shape dos bairros \PYZhy{} polígonos}
+        \PY{n}{bairros} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../shapefiles/BaseSSA/Limites/bairros\PYZus{}fim.shp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bbox} \PY{o}{=} \PY{n}{recorte} \PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} importando Shape das edificaçõs \PYZhy{} polilinhas}
+        \PY{n}{edf} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../shapefiles/BaseSSA/edificacoes\PYZus{}polyline.shp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bbox} \PY{o}{=} \PY{n}{recorte}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} importando shape de pontos}
+        \PY{n}{edf\PYZus{}pt} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../shapefiles/BaseSSA/edificacoes\PYZus{}point.shp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bbox} \PY{o}{=} \PY{n}{recorte}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{mostrando-os-dados-dos-shapes}{%
+\subsection{Mostrando os dados dos
+shapes}\label{mostrando-os-dados-dos-shapes}}
+
+    \hypertarget{dados-do-shape-bairros}{%
+\subsubsection{Dados do shape bairros}\label{dados-do-shape-bairros}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{bairros}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}    OBJECTID  BR\_  BR\_ID       NM\_BAIRROS    Shape\_Leng    Shape\_Area  \textbackslash{}
+        0        89    2      1           Lobato  10290.734146  1.508163e+06   
+        1        91    2      1     Massaranduba   5027.152427  5.301521e+05   
+        2        92    2      1      Santa Luzia   5579.648112  3.957189e+05   
+        3        98    2      1  Alto do Cabrito   5031.429303  1.112943e+06   
+        4        99    2      1        Capelinha   3337.251376  4.201418e+05   
+        
+                                                    geometry  
+        0  POLYGON ((556643.6323074758 8573040.904571733,{\ldots}  
+        1  POLYGON ((555124.2668471506 8570956.484697679,{\ldots}  
+        2  POLYGON ((556131.141931782 8571133.633667247, {\ldots}  
+        3  POLYGON ((557394.0547874847 8572993.633136973,{\ldots}  
+        4  POLYGON ((556500.9559292701 8570974.556498181,{\ldots}  
+\end{Verbatim}
+            
+    \hypertarget{dados-do-shape-edificacoes}{%
+\subsubsection{Dados do shape
+edificacoes}\label{dados-do-shape-edificacoes}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{edf}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}        ID                                           geometry
+         0  357236  LINESTRING (555000.0316226622 8570905.59166144{\ldots}
+         1  357238  LINESTRING (554999.0173801129 8570926.86740669{\ldots}
+         2  357239  LINESTRING (555000.4686540046 8570930.90659893{\ldots}
+         3  357240  LINESTRING (555002.9094328225 8570934.45588914{\ldots}
+         4  357241  LINESTRING (555009.4978864561 8570930.67664492{\ldots}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{edf\PYZus{}pt}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}        ID                                      geometry
+         0  367175  (POINT (556360.5184374301 8570865.76962509))
+         1  367176  (POINT (556360.5184374301 8570865.76962509))
+         2  367177  (POINT (556360.5184374301 8570865.76962509))
+         3  367178  (POINT (556497.9771634268 8571237.37531103))
+         4  367179  (POINT (556360.5184374301 8570865.76962509))
+\end{Verbatim}
+            
+    \hypertarget{lendo-arquivos-do-banco-de-dados-espaciais-online-open-street-maps}{%
+\subsection{Lendo Arquivos do banco de dados espaciais online Open
+Street
+maps}\label{lendo-arquivos-do-banco-de-dados-espaciais-online-open-street-maps}}
+
+    \hypertarget{baixando-arquivos-por-coordenadas-limite}{%
+\subsubsection{Baixando arquivos por coordenadas
+limite}\label{baixando-arquivos-por-coordenadas-limite}}
+
+    O open street maps trabalha com coordenadas WGS84, definidas pelo código
+epsg 4326. O sistema WGS84 utiliza coordenadas em graus de latitude e
+longitude.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{recorte}\PY{o}{.}\PY{n}{bounds}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}        minx       miny      maxx       maxy
+         0  555000.0  8570000.0  557000.0  8572000.0
+\end{Verbatim}
+            
+    Para utilizar a mesma geometria limite da utilizada para a importação do
+Shapefile, é preciso converter o sistema de coordenadas de referência de
+Sigras 2000 para WGS84.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{recorte\PYZus{}LL} \PY{o}{=} \PY{n}{recorte}\PY{o}{.}\PY{n}{to\PYZus{}crs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{init}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{epsg:4326}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{recorte\PYZus{}LL}\PY{o}{.}\PY{n}{bounds}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}        minx       miny       maxx       maxy
+         0 -38.49299 -12.934936 -38.474516 -12.916815
+\end{Verbatim}
+            
+    O elemento de índice 0 da coluna geometry é um polígono da biblioteca
+shapely.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:}  \PY{n+nb}{type}\PY{p}{(}\PY{n}{recorte\PYZus{}LL}\PY{o}{.}\PY{n}{geometry}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} shapely.geometry.polygon.Polygon
+\end{Verbatim}
+            
+    segundo a
+\href{https://osmnx.readthedocs.io/en/stable/osmnx.html?highlight=graph_from_place\#osmnx.core.graph_from_polygon}{documentação
+do comando ox.graph\_from\_polygon} ele recebe como priméiro parâmetro
+um polígono ou multi-polígono da biblioteca citada.
+
+O download do multi-grafo depende da conexão com a internet
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{gLatLon} \PY{o}{=}  \PY{n}{ox}\PY{o}{.}\PY{n}{graph\PYZus{}from\PYZus{}polygon}\PY{p}{(}
+                                            \PY{n}{recorte\PYZus{}LL}\PY{o}{.}\PY{n}{geometry}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                                          \PY{p}{,} \PY{n}{network\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all\PYZus{}private}\PY{l+s+s1}{\PYZsq{}}
+                                          \PY{p}{,} \PY{n}{truncate\PYZus{}by\PYZus{}edge}\PY{o}{=} \PY{k+kc}{True}
+                                          \PY{p}{,} \PY{n}{retain\PYZus{}all} \PY{o}{=} \PY{k+kc}{True}
+                                     \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{gLatLon}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <networkx.classes.multidigraph.MultiDiGraph at 0x1dc1473cb70>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{ox}\PY{o}{.}\PY{n}{project\PYZus{}graph}\PY{p}{(}\PY{n}{gLatLon}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} (<Figure size 449.029x432 with 1 Axes>,
+          <matplotlib.axes.\_subplots.AxesSubplot at 0x1dc14ea3c50>)
+\end{Verbatim}
+            
+    \hypertarget{juntando-o-arquivo-osm-com-o-arquivo-shp}{%
+\subsection{Juntando O arquivo OSM com o Arquivo
+SHP}\label{juntando-o-arquivo-osm-com-o-arquivo-shp}}
+
+\hypertarget{trasnformando-de-grafo-osm-para-geopandas-data-frame}{%
+\subsubsection{Trasnformando de Grafo OSM para geopandas Data
+frame}\label{trasnformando-de-grafo-osm-para-geopandas-data-frame}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{osm\PYZus{}pontos}\PY{p}{,} \PY{n}{osm\PYZus{}linhas} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{save\PYZus{}load}\PY{o}{.}\PY{n}{graph\PYZus{}to\PYZus{}gdfs}\PY{p}{(}\PY{n}{gLatLon}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{osm\PYZus{}linhas}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}   bridge                                           geometry         highway  \textbackslash{}
+         0    NaN  LINESTRING (-38.4817005 -12.9226106, -38.48173{\ldots}         footway   
+         1    NaN  LINESTRING (-38.4817005 -12.9226106, -38.48143{\ldots}         primary   
+         2    NaN  LINESTRING (-38.4806693 -12.9168449, -38.48061{\ldots}  secondary\_link   
+         3    NaN  LINESTRING (-38.4806693 -12.9168449, -38.48063{\ldots}         primary   
+         4    NaN  LINESTRING (-38.4806036 -12.9174681, -38.48123{\ldots}     residential   
+         
+            key lanes   length maxspeed                     name  oneway      osmid  \textbackslash{}
+         0    0   NaN    5.818      NaN                      NaN   False  431452585   
+         1    0     2  293.516       60  Avenida Afrânio Peixoto    True  258852462   
+         2    0   NaN    6.314      NaN                      NaN    True   86577754   
+         3    0     2   69.680       60  Avenida Afrânio Peixoto    True  406250331   
+         4    0   NaN  233.994      NaN                      NaN   False   88627556   
+         
+           service          u           v  
+         0     NaN  592377792  4306484891  
+         1     NaN  592377792  3944737722  
+         2     NaN  592378346  4306607916  
+         3     NaN  592378346   592378351  
+         4     NaN  592378351  1029167862  
+\end{Verbatim}
+            
+    \hypertarget{sistemas-de-coordenadas}{%
+\subsection{Sistemas de coordenadas}\label{sistemas-de-coordenadas}}
+
+\hypertarget{trasnformando-para-o-sistema-sigras-2000}{%
+\subsubsection{trasnformando para o sistema Sigras
+2000}\label{trasnformando-para-o-sistema-sigras-2000}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Mudando o sistema de coordenadas de referência}
+         
+         \PY{c+c1}{\PYZsh{} Para o Shape de Pontos}
+         \PY{n}{osm\PYZus{}pontos}\PY{o}{.}\PY{n}{to\PYZus{}crs}\PY{p}{(}\PY{n}{bairros}\PY{o}{.}\PY{n}{crs}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Para o Shape de Bairros}
+         \PY{n}{osm\PYZus{}linhas}\PY{o}{.}\PY{n}{to\PYZus{}crs}\PY{p}{(}\PY{n}{bairros}\PY{o}{.}\PY{n}{crs}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    Odenando as colunas do shape das linhas
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Ordenando as colunas das linhas para que a coluna de geometria fique por último}
+         \PY{n}{osm\PYZus{}linhas\PYZus{}cols} \PY{o}{=} \PY{n}{osm\PYZus{}linhas}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{osm\PYZus{}linhas\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{osm\PYZus{}linhas\PYZus{}cols} \PY{k}{if} \PY{n}{x} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{osm\PYZus{}linhas\PYZus{}cols}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{osm\PYZus{}linhas} \PY{o}{=} \PY{n}{osm\PYZus{}linhas}\PY{p}{[}\PY{n}{osm\PYZus{}linhas\PYZus{}cols}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{osm\PYZus{}linhas}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}   bridge         highway  key lanes   length maxspeed  \textbackslash{}
+         0    NaN         footway    0   NaN    5.818      NaN   
+         1    NaN         primary    0     2  293.516       60   
+         2    NaN  secondary\_link    0   NaN    6.314      NaN   
+         3    NaN         primary    0     2   69.680       60   
+         4    NaN     residential    0   NaN  233.994      NaN   
+         
+                               name  oneway      osmid service          u           v  \textbackslash{}
+         0                      NaN   False  431452585     NaN  592377792  4306484891   
+         1  Avenida Afrânio Peixoto    True  258852462     NaN  592377792  3944737722   
+         2                      NaN    True   86577754     NaN  592378346  4306607916   
+         3  Avenida Afrânio Peixoto    True  406250331     NaN  592378346   592378351   
+         4                      NaN   False   88627556     NaN  592378351  1029167862   
+         
+                                                     geometry  
+         0  LINESTRING (556223.3656601022 8571360.65885263{\ldots}  
+         1  LINESTRING (556223.3656601022 8571360.65885263{\ldots}  
+         2  LINESTRING (556336.5217465418 8571998.06138254{\ldots}  
+         3  LINESTRING (556336.5217465418 8571998.06138254{\ldots}  
+         4  LINESTRING (556343.5093335714 8571929.12723277{\ldots}  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{osm\PYZus{}pontos}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}           highway      osmid        x        y  \textbackslash{}
+         592377792     NaN  592377792 -38.4817 -12.9226   
+         592377803     NaN  592377803 -38.4805 -12.9169   
+         592378346     NaN  592378346 -38.4807 -12.9168   
+         592378351     NaN  592378351 -38.4806 -12.9175   
+         592378362     NaN  592378362 -38.4815 -12.9222   
+         
+                                                       geometry  
+         592377792  POINT (556223.3656601022 8571360.658852631)  
+         592377803   POINT (556350.339344732 8571996.562528457)  
+         592378346  POINT (556336.5217465418 8571998.061382545)  
+         592378351  POINT (556343.5093335714 8571929.127232777)  
+         592378362  POINT (556243.6960290928 8571404.168260001)  
+\end{Verbatim}
+            
+    \hypertarget{plotando-os-data-frames}{%
+\subsubsection{Plotando os Data Frames}\label{plotando-os-data-frames}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{fig2}\PY{p}{,} \PY{n}{layers2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+                                     \PY{c+c1}{\PYZsh{},dpi=30}
+                                    \PY{p}{)}
+         
+         \PY{n}{recorte}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax} \PY{o}{=} \PY{n}{layers2}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Plotando os bairros}
+         \PY{c+c1}{\PYZsh{} Limites preto}
+         \PY{c+c1}{\PYZsh{} alpha \PYZhy{} transparência}
+         \PY{c+c1}{\PYZsh{} layers \PYZhy{} quadro o qual poderá ser alterado os valores de xmin, xmax, título e etc}
+         
+         
+         \PY{n}{bairros}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=} \PY{n}{layers2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellowgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=} \PY{l+m+mf}{1.5}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{} Plotando as edificações com a cor vermelha}
+         \PY{n}{edf}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=} \PY{n}{layers2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=} \PY{l+m+mf}{0.7}\PY{p}{)}
+         
+         \PY{k}{try}\PY{p}{:}
+             \PY{n}{edf\PYZus{}pt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=} \PY{n}{layers2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=} \PY{l+m+mf}{0.7}\PY{p}{,} \PY{p}{)}
+         \PY{k}{except}\PY{p}{:}
+             \PY{k}{pass}
+         
+         \PY{c+c1}{\PYZsh{} importados do OSM}
+         \PY{n}{osm\PYZus{}linhas}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=} \PY{n}{layers2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{teal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=} \PY{l+m+mf}{0.8}\PY{p}{,} \PY{p}{)}
+         \PY{n}{osm\PYZus{}pontos}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=} \PY{n}{layers2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indigo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=} \PY{l+m+mf}{0.4}\PY{p}{,} \PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} titulo da figura}
+         \PY{n}{fig2}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Imagem Teste}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} limites do gráfico}
+         \PY{n}{layers2}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{n}{xSC}\PY{p}{,} \PY{n}{xSC} \PY{o}{+} \PY{n}{deltaX} \PY{p}{)}
+         \PY{n}{layers2}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{n}{ySC}\PY{p}{,}  \PY{n}{ySC} \PY{o}{+} \PY{n}{deltaY} \PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} (8570000, 8572000)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{gravando-no-banco-de-dados}{%
+\subsubsection{Gravando no banco de
+dados}\label{gravando-no-banco-de-dados}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{engine} \PY{o}{=} \PY{n}{create\PYZus{}engine}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postgresql://postgres:1234@localhost:5432/sdb\PYZus{}arqb30}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    referência do epsg:
+
+http://spatialreference.org/ref/epsg/sirgas-2000-utm-zone-24s/
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{bairros}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{bairros}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{WKTElement}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{wkt}\PY{p}{,} \PY{n}{srid}\PY{o}{=} \PY{l+m+mi}{31984}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{bairros}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{bairros}\PY{o}{.}\PY{n}{to\PYZus{}sql}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bairrosSSAPoly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{engine}\PY{p}{,} \PY{n}{if\PYZus{}exists}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{append}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} 
+                                  \PY{n}{dtype}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{Geometry}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Polygon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{srid}\PY{o}{=} \PY{l+m+mi}{31984}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{osm\PYZus{}linhas}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{osm\PYZus{}linhas}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{WKTElement}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{wkt}\PY{p}{,} \PY{n}{srid}\PY{o}{=} \PY{l+m+mi}{31984}\PY{p}{)}\PY{p}{)}
+         \PY{n}{osm\PYZus{}linhas}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{osm\PYZus{}linhas}\PY{o}{.}\PY{n}{to\PYZus{}sql}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{osm\PYZus{}linhas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{engine}\PY{p}{,} \PY{n}{if\PYZus{}exists}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{append}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} 
+                                  \PY{n}{dtype}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{Geometry}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LINESTRING }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{srid}\PY{o}{=} \PY{l+m+mi}{31984}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
