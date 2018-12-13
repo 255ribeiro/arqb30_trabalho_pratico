@@ -19,6 +19,6 @@ jupyter notebooks trabalho prático da disciplina ARQB30
     
 ## Anexos
 
-  [Anexo I](arqb30_trabalho_pratico/nbs_downloads/Anexo_I/Anexo_I.md)
+  [Anexo I](./nbs_downloads/Anexo_I/Anexo_I.md)
   
-  [Anexo II](arqb30_trabalho_pratico/nbs_downloads/Anexo_II/Anexo_II.md)
+  [Anexo II](./nbs_downloads/Anexo_II/Anexo_II.md)
